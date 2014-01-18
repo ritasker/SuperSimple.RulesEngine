@@ -47,16 +47,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RulesEngineImpleamentation.cs" />
+    <Compile Include="Rules\BaseRule.cs" />
+    <Compile Include="Rules\BuyThreeGetThirdFree.cs" />
+    <Compile Include="Conditions\Equals.cs" />
+    <Compile Include="Rules\FreeShipping.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="Conditions\GreaterThan.cs" />
+    <Compile Include="ShoppingCart.cs" />
     <Compile Include="RulesEngineTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Conditions\" />
-    <Folder Include="Rules\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperSimple.RulesEngine\SuperSimple.RulesEngine.csproj">
+      <Project>{5f4a04db-7b25-46a7-9400-fd5a785d5679}</Project>
+      <Name>SuperSimple.RulesEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

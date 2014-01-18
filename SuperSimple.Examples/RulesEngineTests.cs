@@ -1,31 +1,56 @@
-﻿using Xunit;
-namespace SuperSimple.Examples
+﻿namespace SuperSimple.Examples
 {
+    using System.Collections.Generic;
+    using FluentAssertions;
+    using Xunit;
 
     public class RulesEngineTests
     {
         [Fact]
-        public void TestA()
+        public void ShouldGetTheThirdFreeAndNotFreeShipping()
         {
-            var sut = new RulesEngineImpleamentation();
+            // ARRANGE
+            var productA = new Product {Price = 1.28m, Name = "Widget"};
+            var productB = new Product {Price = 2.56m, Name = "Do Hickey"};
 
-            var result = sut.Run();
+            var cart = new ShoppingCart
+            {
+                Products = new List<Product> {productA, productB, productA, productB, productA}
+            };
 
+            var sut = new RulesEngineImpleamentation(cart);
 
+            // ACT
+            ShoppingCart result = sut.Run();
+
+            // ASSERT
+            const decimal expectedTotal = 7.68m;
+            result.FreeShippng.Should().BeFalse();
+            result.TotalValue.Should().Be(expectedTotal);
         }
 
-    }
-
-    public class RulesEngineImpleamentation
-    {
-        public void Run()
+        [Fact]
+        public void ShouldGetTheThirdFreeAndFreeShipping()
         {
-            var po = new PO { TotalValue = 3000 };
+            // ARRANGE
+            var productA = new Product {Price = 1.28m, Name = "Widget"};
+            var productB = new Product {Price = 2.56m, Name = "Do Hickey"};
+            var productC = new Product {Price = 5.12m, Name = "Thingy Mabob"};
 
-            po.ApplyRule(new PoNeedToBeApprovedRule())
-                    .ApplyRule(new PoIsMassiveRule());
+            var cart = new ShoppingCart
+            {
+                Products = new List<Product> {productA, productB, productA, productB, productA, productC}
+            };
 
-            return po;
+            var sut = new RulesEngineImpleamentation(cart);
+
+            // ACT
+            ShoppingCart result = sut.Run();
+
+            // ASSERT
+            const decimal expectedTotal = 12.80m;
+            result.FreeShippng.Should().BeTrue();
+            result.TotalValue.Should().Be(expectedTotal);
         }
     }
 }

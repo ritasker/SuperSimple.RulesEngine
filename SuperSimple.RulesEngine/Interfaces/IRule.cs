@@ -3,8 +3,8 @@
     public interface IRule<T>
     {
         void ClearConditions();
-        void Initialize(T objectToBeChecked);
+        void Initialize(T obj);
         bool IsValid();
-        T Apply(T objectToBeChecked);
+        T Apply(T obj);
     }
 }

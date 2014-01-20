@@ -5,7 +5,7 @@
     using System.Linq;
     using RulesEngine.Interfaces;
 
-    public abstract class BaseRule<ShoppingCart> : IRule<ShoppingCart>
+    public abstract class BaseRule<T> : IRule<T>
     {
         protected BaseRule()
         {
@@ -24,12 +24,12 @@
             return Conditions.All(x => x.IsSatisfied());
         }
 
-        public virtual void Initialize(ShoppingCart obj)
+        public virtual void Initialize(T obj)
         {
             throw new NotImplementedException();
         }
 
-        public virtual ShoppingCart Apply(ShoppingCart obj)
+        public virtual T Apply(T obj)
         {
             throw new NotImplementedException();
         }

@@ -2,7 +2,7 @@
 {
     using Conditions;
 
-    internal class FreeShipping : BaseRule<ShoppingCart>
+    public class FreeShipping : BaseRule<ShoppingCart>
     {
         public override void Initialize(ShoppingCart obj)
         {
